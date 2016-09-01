@@ -1,0 +1,73 @@
+ 
+<html>
+
+<link rel="stylesheet" href="main.css">
+
+<br>
+<div id="oldbookbox">
+<br>
+<fieldset>
+<form method="post" action="upload.php"enctype="multipart/form-data" >
+<table width="350" border="0" cellpadding="1" cellspacing="1" class="box">
+<tr> 
+<td width="246">
+<input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+<input name="userfile" type="file" id="userfile"> 
+</td>
+<td width="80"><input name="upload" type="submit" class="box" id="upload" value=" Upload "></td>
+</tr>
+</table>
+</fieldset>
+ </form>
+ </div>
+ </html>
+ <?php
+$bname=null;
+$cat= $bname = $bsprice = $bmprice = $condition = $bstar = $bisbn_no = $bdesc = $sname = $semail = $smobile = $saddr = " ";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+$cat = $_POST['cat'];
+$college = $_POST['college'];
+$bname = $_POST['bname'];
+$bsprice = $_POST['bsprice'];
+$bmprice = $_POST['bmprice'];
+$bcond = $_POST['bcond'];
+$bstar = $_POST['bstar'];
+$bisbn_no = $_POST['bisbn_no'];
+$bdesc = $_POST['bdesc'];
+$sname = $_POST['sname'];
+$semail = $_POST['semail'];
+$smobile = $_POST['smobile'];
+$saddr = $_POST['saddr'];
+}
+function test_input($data) {
+   $data = trim($data);
+   $data = stripslashes($data);
+   $data = htmlspecialchars($data);
+   return $data;
+}
+
+	$servername = "localhost";
+$username = "root";
+$password = "ambika";
+$dbname = "oldbooks";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+
+}
+
+
+
+$sql = "INSERT INTO oldbook (cat, bname, bsprice, bmprice, bcond, bstar, bisbn_no, bdesc, sname, semail, smobile, saddr) VALUES('$cat', '$bname', $bsprice, $bmprice, '$bcond', $bstar, '$bisbn_no', '$bdesc', '$sname', '$semail', $smobile, '$saddr')";;
+
+if ($conn->query($sql) === TRUE){
+    echo "Post ad successfully....  Please Upload Image...";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+?>
